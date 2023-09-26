@@ -1,7 +1,8 @@
 "blockrand" <-
 function(n, num.levels=2, levels=LETTERS[seq(length=num.levels)],
                       id.prefix, stratum, block.sizes=1:4, block.prefix,
-         uneq.beg=FALSE, uneq.mid=FALSE, uneq.min=0,uneq.maxit=10){
+         uneq.beg=FALSE, uneq.mid=FALSE, uneq.min=0,uneq.maxit=10,
+         pascal = TRUE){
 
     treat <- vector(mode(levels))
     block.id <- numeric(0)
@@ -28,7 +29,13 @@ function(n, num.levels=2, levels=LETTERS[seq(length=num.levels)],
         }
 
         block.n <- if(length(block.sizes) > 1 ) {
-            sample(block.sizes,1)
+            if(pascal) {
+              pascalvals <- choose(length(block.sizes)-1, 0:(length(block.sizes)-1))
+              p <- pascalvals / length(block.sizes)
+            } else {
+              p <- rep(1 / length(block.sizes), length(block.sizes))
+            }
+            sample(block.sizes, 1, prob = p)
         } else {
             block.sizes
         }

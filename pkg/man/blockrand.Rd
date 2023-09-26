@@ -34,6 +34,7 @@ uneq.beg=FALSE, uneq.mid=FALSE, uneq.min=0, uneq.maxit=10)
   \item{uneq.min}{ what is the minimum difference between the most and
     least common levels in an unequal block }
   \item{uneq.maxit}{ maximum number of tries to get uneq.min difference }
+  \item{pascal}{ sample block sizes according to Pascal's triangle }
 }
 \details{
   This function will randomize subjects to the specified treatments
@@ -63,6 +64,12 @@ uneq.beg=FALSE, uneq.mid=FALSE, uneq.min=0, uneq.maxit=10)
   not be exactly equal (but still similar).  This makes it more
   difficult to anticipate future assignments as the numbers will not
   return to equality at the end of each block.
+
+  Too many small blocks can increase the risk of breaking the blind.
+  Conversely, too many large blocks can lead to imbalance in the event
+  that recruitment is stopped mid-block. If \code{pascal = TRUE} is used,
+  block sizes are sampled in proportion to the elements of Pascal's
+  triangle. If \code{pascal = FALSE}, all block sizes are equally likely.
 
   For stratified studies the \code{blockrand} function should run once
   each for each stratum using the \code{stratum} argument to specify the
